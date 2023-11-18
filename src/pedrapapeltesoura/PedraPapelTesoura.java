@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package pedrapapeltesoura;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -13,63 +10,64 @@ import java.util.Scanner;
  */
 public class PedraPapelTesoura {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-        int opcao1, opcao2;
-        String result= null;
-        
-        
-        Scanner ent = new Scanner(System.in);
-        
-        System.out.println("Jogador 1 escolhe");
-        System.out.println("1-Pedra, 2-Papel, 3- Tesoura");
-        
-        opcao1 = ent.nextInt();
-        if(opcao1 < 0 && opcao1 > 3)
-        System.out.println("Jogador 1 escolha uma opção valida");
-        System.out.println("1-Pedra, 2-Papel, 3- Tesoura");
-        
-    
-        System.out.println("Jogador 2 escolhe");
-        System.out.println("1-Pedra, 2-Papel, 3- Tesoura");
-        opcao2 = ent.nextInt();
-        
-        
-        
-        switch (opcao1) {
-            case 1:
-                switch (opcao2){
-                    case 1: result = "Empate";
-                    break;
-                    case 2: result = "Jogador 2 venceu";
-                    break;
-                    case 3: result = "Jogador 1 venceu";
-                    break;
-                }
-            case 2:
-                switch (opcao2){
-                    case 1: result = "Jogador 1 venceu";
-                    break;
-                    case 2: result = "Empate";
-                    break;
-                    case 3: result = "Jogador 2 venceu";
-                    break;
-                }
-            case 3:
-                switch (opcao2){
-                    case 1: result = "Jogador 2 venceu";
-                    break;
-                    case 2: result = "Jogador 1 venceu";
-                    break;
-                    case 3: result = "Empate";
-                    break;
-                }
-                            
+  
+  public static void main(String[] args) {
+
+    int opcaoJogador, opcaoPc;
+    int totalRodadas = 3;
+    int rodadas = 0;
+    int vitoriasJogador = 0;
+    int vitoriasPc = 0;
+    int empates = 0;
+
+    Scanner ent = new Scanner(System.in);
+    Random rn = new Random();
+
+    while (rodadas < totalRodadas) {
+      do {
+        System.out.println("Jogador escolha entre pedra (1), papel (2) ou tesoura (3)");
+
+        opcaoJogador = ent.nextInt();
+
+        if (opcaoJogador < 1 || opcaoJogador > 3) {
+          System.out.println("Escolha inválida, a opção deve ser entre 1 a 3");
         }
-        System.out.println("Resultado: " + result);
+
+      } while (opcaoJogador < 1 || opcaoJogador > 3);
+
+      opcaoPc = rn.nextInt(3) + 1;
+
+      System.out.println("Jogador escolheu: " + opcaoJogador);
+      System.out.println("Computador escolheu: " + opcaoPc);
+
+      if (opcaoJogador == opcaoPc) {
+        System.out.println("Empate");
+        empates++;
+      } else if ((opcaoJogador == 1 && opcaoPc == 3)
+          || (opcaoJogador == 2 && opcaoPc == 1)
+          || (opcaoJogador == 3 && opcaoPc == 2)) {
+
+          {
+            vitoriasJogador++;
+            System.out.println("Jogador Venceu");
+          }
+
+        } else {
+          System.out.println("Computador venceu");
+          vitoriasPc++;
+
+        }
+      rodadas++;
+
     }
-    
+    System.out.println("----------------------------------------------------");
+    System.out.println("Total de rodadas jogadas: " + totalRodadas);
+    System.out.println("Total de empates: " + empates);
+    System.out.println("Total de vitórias jogador: " + vitoriasJogador);
+    System.out.println("Total de vitórias Computador: " + vitoriasPc);
+    if (vitoriasJogador > vitoriasPc) {
+      System.out.println("Jogador venceu!");
+    } else
+      System.out.println("Computador venceu!");
+  }
 }
